@@ -1,0 +1,40 @@
+[mathjax]
+
+This project was made rather quickly in response to an image challenge.  Afterwards I changed the project to allow the user to choose any image to pixelate.
+
+<h3>Links</h3>
+
+<a href="http://www.aidansean.com/pixeler">Live page</a>
+<a href="http://stackoverflow.com/questions/3114147/100-safe-photo-upload-script">Stack overflow: 100% safe photo upload script</a>
+<a href="https://github.com/aidansean/pixeler">GitHub repository</a>
+
+<h3>Overview</h3>
+
+The user specifies the uri of an image, and the settings for pixelation.  The image is loaded server side using PHP and then the pixels are manipulated and the image returned.  The image has to be loaded safely server side and the following code is used to check the MIME type:
+
+<code>$imageURI = (isset($_GET['uri'])) ? $_GET['uri'] : 'monalisa_before.png' ;
+$image_extension = substr(strrchr($imageURI, '.'), 1) ;</code>
+
+<code>// Taken from http://stackoverflow.com/questions/3114147/100-safe-photo-upload-script
+$mime_mapping = array('png' => 'image/png', 'gif' => 'image/gif', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg') ;
+$info = getimagesize($imageURI);
+if(!$info){ exit('not an image') ; }
+$type = $mime_mapping[$image_extension] ;
+if($info['mime']!=$type){ exit('wrong extension given') ; }</code>
+
+<code>switch($type){
+	case 'image/jpeg': $source = imagecreatefromjpeg($imageURI) ; break ;
+	case 'image/gif' : $source = imagecreatefromgif ($imageURI) ; break ;
+	case 'image/png' : $source = imagecreatefrompng ($imageURI) ; break ;
+	default : quit('File type not known.') ; break ;
+}</code>
+
+<h3>Challenges</h3>
+<dl>
+<dt><em>Challenge</em>: Ideally the page should be able to load any image, including those from external domains.</dt>
+
+<dd><em>Solution</em>: Although I'd prefer to use the canvas to pixelate images (as can be done with the ASCII art maker) that solution would be limited by the same source restrictions.  As a result, this project will stay with PHP until further notice. (Resolved)</dd>
+<dt><em>Challenge</em>: The user needs to be able to specfiy any URI and the server must be able to handle this safely.</dt>
+
+<dd><em>Solution</em>: Safely loading images in PHP is easier than I thought it would be.  Thanks, Stack Overflow! (Resolved)</dd>
+</dl>

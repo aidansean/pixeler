@@ -1,0 +1,22 @@
+table.images{
+  width : 700px ;
+  margin : auto ;
+}
+th.images, td.images{
+  width : 50% ;
+  text-align : center ;
+}
+div#image_wrapper{ text-align : center ; }
+table#table_form{
+  width : 400px ;
+  margin : auto ;
+}
+th.left{
+  width : 200px ;
+  color : white ;
+  background-color : #006633 ;
+  background-color : #000000 ;
+}
+td.right{ width : 200px ; }
+input#input_url{ width : 200px ; }
+input#input_pixels{ width : 20px ; }
